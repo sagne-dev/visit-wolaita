@@ -897,3 +897,111 @@ footer::before {
 .footer-bottom a {
     color: #fff;
 }
+
+/* QUIZ MODAL */
+.quiz-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.quiz-modal.open {
+    display: flex;
+}
+
+.quiz-modal-content {
+    background: var(--yellow);
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.quiz-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--blue);
+}
+
+.quiz-modal-title {
+    color: var(--blue);
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 24px;
+}
+
+.quiz-question {
+    margin-bottom: 22px;
+}
+
+.quiz-question h3 {
+    color: var(--blue);
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0 0 10px;
+}
+
+.quiz-question label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    color: #000;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.quiz-question label:hover {
+    background: var(--blue);
+    color: #fff;
+}
+
+.quiz-question input[type="radio"] {
+    margin-right: 8px;
+    accent-color: var(--blue);
+}
+
+.quiz-submit {
+    width: 100%;
+    justify-content: center;
+}
+
+.quiz-result-title {
+    color: var(--blue);
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+}
+
+.quiz-result-text {
+    color: var(--blue);
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 600;
+    margin: 0 0 24px;
+}
+
+.quiz-restart,
+.quiz-close-result {
+    margin-right: 10px;
+}

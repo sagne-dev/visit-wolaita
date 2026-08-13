@@ -93,7 +93,7 @@
             <p class="mfy-description">
                 Find out what kind of traveler you are with our 1-minute quiz, and we'll recommend experiences across the site to fit your vibe.
             </p>
-            <a href="#" class="quiz-btn">Take The Quiz &#187;</a>
+            <a href="#" class="quiz-btn" id="quizOpenBtn">Take The Quiz &#187;</a>
         </div>
     </section>
 
@@ -315,6 +315,50 @@
     <!-- Side Sticky Tab -->
     <div class="ask-me-tab">Ask me anything</div>
 
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-modal-content">
+            <button class="quiz-modal-close" id="quizModalClose" aria-label="Close quiz">&times;</button>
+
+            <div id="quizQuestions">
+                <h2 class="quiz-modal-title">FIND YOUR WOLAITA VIBE</h2>
+
+                <div class="quiz-question">
+                    <h3>1. What's your ideal Wolaita day?</h3>
+                    <label><input type="radio" name="q1" value="adventure"> Waterfall hike</label>
+                    <label><input type="radio" name="q1" value="relax"> Lake beach</label>
+                    <label><input type="radio" name="q1" value="culture"> City & culture</label>
+                    <label><input type="radio" name="q1" value="food"> Food & coffee</label>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>2. Who are you traveling with?</h3>
+                    <label><input type="radio" name="q2" value="solo"> Solo</label>
+                    <label><input type="radio" name="q2" value="couple"> Couple</label>
+                    <label><input type="radio" name="q2" value="family"> Family</label>
+                    <label><input type="radio" name="q2" value="friends"> Friends</label>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>3. Your travel style?</h3>
+                    <label><input type="radio" name="q3" value="adventure"> Adventure</label>
+                    <label><input type="radio" name="q3" value="relaxed"> Relaxed</label>
+                    <label><input type="radio" name="q3" value="cultural"> Cultural</label>
+                    <label><input type="radio" name="q3" value="foodie"> Foodie</label>
+                </div>
+
+                <button class="quiz-btn quiz-submit" id="quizSubmit">See My Result &#187;</button>
+            </div>
+
+            <div id="quizResult" style="display:none;">
+                <h2 class="quiz-result-title" id="quizResultTitle"></h2>
+                <p class="quiz-result-text" id="quizResultText"></p>
+                <button class="quiz-btn quiz-restart" id="quizRestart">Take Again</button>
+                <button class="quiz-btn quiz-close-result" id="quizCloseResult">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- GSAP Animation Script -->
     <script>
         gsap.set("#card1", { rotation: -3, x: 0, y: 0, zIndex: 3 });
@@ -366,6 +410,91 @@
             duration: 0.7,
             ease: "power2.inOut"
         });
+    </script>
+
+    <!-- Quiz Modal Script -->
+    <script>
+        const quizModal = document.getElementById('quizModal');
+        const quizOpenBtn = document.getElementById('quizOpenBtn');
+        const quizModalClose = document.getElementById('quizModalClose');
+        const quizSubmit = document.getElementById('quizSubmit');
+        const quizRestart = document.getElementById('quizRestart');
+        const quizCloseResult = document.getElementById('quizCloseResult');
+        const quizQuestions = document.getElementById('quizQuestions');
+        const quizResult = document.getElementById('quizResult');
+        const quizResultTitle = document.getElementById('quizResultTitle');
+        const quizResultText = document.getElementById('quizResultText');
+
+        const quizResults = {
+            adventure: { title: 'WOLAITA EXPLORER', text: 'You are all about the wild side! Ajora Falls and the hiking trails of Sodo Zuria are calling your name.' },
+            relax: { title: 'LAKE LOVER', text: 'Slow days by the water are your thing. The Lake Abaya beaches are ready for you.' },
+            culture: { title: 'CULTURE SEEKER', text: 'History and heritage fuel you. Begin at the Wolaita Cultural Museum and wander Tona Street.' },
+            food: { title: 'TASTE OF WOLAITA', text: 'Flavors lead the way! A traditional coffee ceremony and local dishes belong on your itinerary.' }
+        };
+
+        const quizGroups = {
+            solo: 'A perfect solo escape.',
+            couple: 'A wonderful choice for a romantic trip.',
+            family: 'Great fun for the whole family.',
+            friends: 'The ideal plan for a trip with friends.'
+        };
+
+        const quizFlavors = {
+            adventure: 'Push it further with a guided trail ride.',
+            relaxed: 'Keep plenty of time to just soak it all in.',
+            cultural: 'Weave in a visit to the Cultural Museum.',
+            foodie: 'Save room for a traditional coffee ceremony.'
+        };
+
+        function openQuiz() {
+            quizModal.classList.add('open');
+        }
+
+        function closeQuiz() {
+            quizModal.classList.remove('open');
+        }
+
+        function showQuizResult() {
+            quizQuestions.style.display = 'none';
+            quizResult.style.display = 'block';
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('#quizModal input[type="radio"]').forEach(r => r.checked = false);
+            quizResult.style.display = 'none';
+            quizQuestions.style.display = 'block';
+        }
+
+        quizOpenBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openQuiz();
+        });
+
+        quizModalClose.addEventListener('click', closeQuiz);
+
+        quizModal.addEventListener('click', (e) => {
+            if (e.target === quizModal) closeQuiz();
+        });
+
+        quizSubmit.addEventListener('click', () => {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+
+            if (!q1 || !q2 || !q3) {
+                alert('Please answer all three questions first.');
+                return;
+            }
+
+            const result = quizResults[q1.value];
+            quizResultTitle.textContent = result.title;
+            quizResultText.textContent = result.text + ' ' + quizGroups[q2.value] + ' ' + quizFlavors[q3.value];
+            showQuizResult();
+        });
+
+        quizRestart.addEventListener('click', resetQuiz);
+
+        quizCloseResult.addEventListener('click', closeQuiz);
     </script>
 </body>
 </html>
