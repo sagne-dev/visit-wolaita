@@ -28,15 +28,15 @@
     <nav>
         <a href="#" class="logo">Visit Wolaita</a>
         <div class="nav-links">
-            <a href="#">Plan Your Trip ▾</a>
-            <a href="#">Things to Do ▾</a>
-            <a href="#">Places to Stay ▾</a>
-            <a href="#">Food & Drink ▾</a>
+            <a href="#" id="navQuizOpen">Plan Your Trip ▾</a>
+            <a href="#experience">Things to Do ▾</a>
+            <a href="#" id="navPlaces">Places to Stay ▾</a>
+            <a href="#" id="navFood">Food & Drink ▾</a>
+            <a href="about.html">About Wolaita</a>
             <a href="#">Events ▾</a>
         </div>
         <div class="nav-right">
             <span>🔍</span>
-            <a href="#" class="menu-btn">Menu</a>
         </div>
     </nav>
 
@@ -137,7 +137,7 @@
     </section>
 
     <!-- EXPERIENCE WOLAITA SECTION -->
-    <section class="experience-section">
+    <section class="experience-section" id="experience">
         <div class="exp-header">
             <div class="exp-title-box">
                 <h2>EXPERIENCE<br>WOLAITA</h2>
@@ -391,6 +391,9 @@
         });
     </script>
 
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
     <!-- Quiz Modal Script -->
     <script>
         const quizModal = document.getElementById('quizModal');
@@ -519,6 +522,31 @@
 
         galleryModal.addEventListener('click', (e) => {
             if (e.target === galleryModal) galleryModal.classList.remove('open');
+        });
+
+        const toast = document.getElementById('toast');
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        const navQuizOpen = document.getElementById('navQuizOpen');
+        navQuizOpen.addEventListener('click', (e) => {
+            e.preventDefault();
+            openQuiz();
+        });
+
+        const navPlaces = document.getElementById('navPlaces');
+        const navFood = document.getElementById('navFood');
+        navPlaces.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Places to Stay — not added yet');
+        });
+        navFood.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Food & Drink — not added yet');
         });
     </script>
 </body>

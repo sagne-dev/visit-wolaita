@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Wolaita | Visit Wolaita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            padding: 80px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about-title {
+            font-size: 52px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .about-text {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-hero {
+            height: 350px;
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        .about-hero h1 {
+            color: white;
+            font-size: 64px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .about-facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .fact-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .fact-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .fact-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .nav-about-active {
+            color: var(--teal) !important;
+            font-weight: 800 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top utility bar with Seasons -->
+    <div class="top-bar">
+        <div class="season-icons">
+            <span title="Spring">❀</span>
+            <span title="Summer">☼</span>
+            <span title="Fall">🍂</span>
+            <span class="active" title="Winter">❄</span>
+        </div>
+        <a href="#" class="meeting-planners">Meeting Planners</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">Visit Wolaita</a>
+        <div class="nav-links">
+            <a href="index.html">Plan Your Trip ▾</a>
+            <a href="index.html#experience">Things to Do ▾</a>
+            <a href="index.html">Places to Stay ▾</a>
+            <a href="index.html">Food & Drink ▾</a>
+            <a href="about.html" class="nav-about-active">About Wolaita</a>
+            <a href="index.html">Events ▾</a>
+        </div>
+        <div class="nav-right">
+            <span>🔍</span>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <h1>About<br>Wolaita</h1>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h2 class="about-title">Discover Wolaita</h2>
+        <p class="about-text">
+            Wolaita is a beautiful zone in southern Ethiopia, known as the land of 50+ kings. It is home to rich traditions, breathtaking natural landscapes, and warm, welcoming people. From the thundering Ajora Falls to the peaceful shores of Lake Abaya, Wolaita offers something for every traveler.
+        </p>
+        <p class="about-text">
+            The culture of Wolaita is deeply rooted in history. Traditional ceremonies, the famous Meskel festival, the cultural museum in Sodo, and vibrant markets along Tona Street give visitors a true taste of Wolaita life.
+        </p>
+        <p class="about-text">
+            This website is a personal project built to share the beauty of Wolaita with the world. Plan your trip, explore experiences, and feel free to reach out through the links below.
+        </p>
+
+        <div class="about-facts">
+            <div class="fact-card">
+                <h3>Land of Kings</h3>
+                <p>Wolaita is famously known as the land of 50+ kings, with a proud royal history.</p>
+            </div>
+            <div class="fact-card">
+                <h3>Natural Wonders</h3>
+                <p>Ajora Falls, Lake Abaya, and the green highlands make it a nature lover's dream.</p>
+            </div>
+            <div class="fact-card">
+                <h3>Rich Culture</h3>
+                <p>Festivals, coffee ceremonies, and museums bring Wolaita's heritage to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer>
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">Visit Wolaita</div>
+                <div class="social-icons">
+                    <span>f</span> <span>📷</span> <span>in</span> <span>p</span> <span>🎵</span> <span>X</span> <span>▶</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="mailto:sagneboss427@gmail.com">Email</a>
+            <a href="https://t.me/sa_gne" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://www.instagram.com/sagne191/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://github.com/sagne-dev" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.tiktok.com/@sagne.forever" target="_blank" rel="noopener">TikTok</a>
+        </div>
+
+        <div class="footer-bottom">
+            <div>Developed by Sagne</div>
+        </div>
+    </footer>
+
+</body>
+</html>

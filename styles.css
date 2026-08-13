@@ -88,12 +88,6 @@ nav {
     gap: 20px;
 }
 
-.menu-btn {
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-}
-
 /* Hero Section */
 .hero {
     position: relative;
@@ -814,6 +808,28 @@ footer::before {
     align-items: center;
     font-size: 13px;
     opacity: 0.8;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--dark-teal);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* QUIZ MODAL */
