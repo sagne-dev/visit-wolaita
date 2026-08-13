@@ -691,20 +691,6 @@ nav {
     gap: 6px;
 }
 
-.play-btn-overlay {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 32px;
-    height: 32px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-}
-
 .reel-caption {
     position: absolute;
     bottom: 20px;
