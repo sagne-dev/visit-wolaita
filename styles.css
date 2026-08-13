@@ -1005,3 +1005,71 @@ footer::before {
 .quiz-close-result {
     margin-right: 10px;
 }
+
+/* GALLERY MODAL */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.gallery-modal.open {
+    display: flex;
+}
+
+.gallery-modal-content {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 1100px;
+    width: 100%;
+    padding: 32px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--blue);
+    z-index: 2;
+}
+
+.gallery-modal-title {
+    color: var(--blue);
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+}

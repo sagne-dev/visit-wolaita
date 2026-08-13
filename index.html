@@ -142,13 +142,12 @@
             <div class="exp-title-box">
                 <h2>EXPERIENCE<br>WOLAITA</h2>
             </div>
-            <a href="#" class="view-all-btn">View All &#187;</a>
+            <a href="#" class="view-all-btn" id="expViewAll">View All &#187;</a>
         </div>
 
         <div class="exp-tabs-controls">
             <div class="exp-tabs">
                 <div class="exp-tab active">Things To Do</div>
-                <div class="exp-tab">Trip Ideas</div>
             </div>
             <div class="slider-arrows">
                 <button class="arrow-btn">&laquo;</button>
@@ -159,21 +158,21 @@
 
         <div class="exp-cards-slider">
             <div class="exp-card">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1000&auto=format&fit=crop" alt="Hiking">
+                <img src="images/wolaita-scenery.jpg" alt="Wolaita Hiking">
                 <div class="exp-card-info">
                     <h3>Wolaita Hiking</h3>
                     <p>Outdoor Activities</p>
                 </div>
             </div>
             <div class="exp-card">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1000&auto=format&fit=crop" alt="Lake Hikes">
+                <img src="images/ajora.jpg" alt="Ajora Falls Lake Hike">
                 <div class="exp-card-info">
                     <h3>Lake Hikes</h3>
                     <p>Outdoor Activities</p>
                 </div>
             </div>
             <div class="exp-card">
-                <img src="https://images.unsplash.com/photo-1434394354979-a235cd36269d?q=80&w=1000&auto=format&fit=crop" alt="Best Beaches">
+                <img src="images/wolaita-moments.jpg" alt="Wolaita Beaches">
                 <div class="exp-card-info">
                     <h3>The Best Lake Beaches</h3>
                     <p>Outdoor Activities</p>
@@ -314,6 +313,15 @@
 
     <!-- Side Sticky Tab -->
     <div class="ask-me-tab">Ask me anything</div>
+
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal">
+        <div class="gallery-modal-content">
+            <button class="gallery-modal-close" id="galleryModalClose" aria-label="Close gallery">&times;</button>
+            <h2 class="gallery-modal-title">WOLAITA PHOTO GALLERY</h2>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </div>
 
     <!-- Quiz Modal -->
     <div class="quiz-modal" id="quizModal">
@@ -495,6 +503,48 @@
         quizRestart.addEventListener('click', resetQuiz);
 
         quizCloseResult.addEventListener('click', closeQuiz);
+
+        const galleryModal = document.getElementById('galleryModal');
+        const expViewAll = document.getElementById('expViewAll');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const galleryModalClose = document.getElementById('galleryModalClose');
+
+        const galleryImages = [
+            'images/ajora.jpg',
+            'images/gallary1.jpeg',
+            'images/gallary2.jpeg',
+            'images/gallary3.jpeg',
+            'images/gallary4.jpeg',
+            'images/gallary5.jpeg',
+            'images/gallary7.jpeg',
+            'images/gallary8.jpeg',
+            'images/gallary9.jpeg',
+            'images/gallary10.jpeg',
+            'images/gallary11.jpeg',
+            'images/gallary12.jpeg',
+            'images/tona-street.jpg',
+            'images/wolaita-culture-1.jpg',
+            'images/wolaita-culture-2.jpg',
+            'images/wolaita-scenery.jpg',
+            'images/wolaita-community.jpg',
+            'images/wolaita-moments.jpg',
+            'images/pic4.jpg',
+            'images/pic6.jpg',
+            'images/pic9.jpg'
+        ];
+
+        galleryGrid.innerHTML = galleryImages.map(src => '<img src="' + src + '" alt="Wolaita photo" loading="lazy">').join('');
+
+        expViewAll.addEventListener('click', (e) => {
+            e.preventDefault();
+            galleryModal.classList.add('open');
+        });
+
+        galleryModalClose.addEventListener('click', () => galleryModal.classList.remove('open'));
+
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) galleryModal.classList.remove('open');
+        });
     </script>
 </body>
 </html>
