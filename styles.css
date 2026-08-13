@@ -122,20 +122,20 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 60px;
-    padding-right: 40px;
+    padding-left: 80px;
+    padding-right: 60px;
     position: relative;
-    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 50%);
+    clip-path: polygon(4% 0%, 100% 0%, 100% 100%, 0% 100%, 10% 50%);
     margin-left: -150px;
 }
 
 .hero-title {
     color: var(--blue);
-    font-size: 68px;
-    line-height: 0.95;
+    font-size: 60px;
+    line-height: 1;
     font-weight: 900;
     text-transform: uppercase;
-    max-width: 550px;
+    max-width: 620px;
 }
 
 /* Side Tab */
