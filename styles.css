@@ -98,35 +98,38 @@ nav {
 .hero {
     position: relative;
     height: 550px;
-    display: flex;
     margin: 0 20px;
     border-radius: 10px;
     overflow: hidden;
 }
 
 .hero-image {
-    flex: 1.2;
-    position: relative;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .hero-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .hero-content {
-    flex: 1;
+    position: relative;
+    margin-left: auto;
+    width: 52%;
+    height: 100%;
     background-color: var(--yellow);
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px;
-    padding-right: 60px;
-    position: relative;
-    clip-path: polygon(4% 0%, 100% 0%, 100% 100%, 0% 100%, 10% 50%);
-    margin-left: -150px;
+    padding-right: 50px;
+    clip-path: polygon(6% 0%, 100% 0%, 100% 100%, 0% 100%, 10% 50%);
 }
 
 .hero-title {
