@@ -144,22 +144,6 @@ nav {
     max-width: 550px;
 }
 
-/* Side Tab */
-.ask-me-tab {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-    transform-origin: right bottom;
-    background: var(--blue);
-    color: white;
-    padding: 10px 20px;
-    font-weight: 700;
-    border-radius: 5px 5px 0 0;
-    cursor: pointer;
-    z-index: 100;
-}
-
 /* Grid Section */
 .content-grid {
     display: grid;
@@ -830,10 +814,6 @@ footer::before {
     align-items: center;
     font-size: 13px;
     opacity: 0.8;
-}
-
-.footer-bottom a {
-    color: #fff;
 }
 
 /* QUIZ MODAL */
