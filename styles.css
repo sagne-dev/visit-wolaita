@@ -128,17 +128,18 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 80px;
+    padding-left: 27%;
     padding-right: 50px;
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 50%);
 }
 
 .hero-title {
     color: var(--blue);
-    font-size: 60px;
-    line-height: 1;
+    font-size: 58px;
+    line-height: 1.05;
     font-weight: 900;
     text-transform: uppercase;
-    max-width: 620px;
+    max-width: 100%;
 }
 
 /* Side Tab */
