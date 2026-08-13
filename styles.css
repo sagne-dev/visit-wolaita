@@ -98,6 +98,7 @@ nav {
 .hero {
     position: relative;
     height: 550px;
+    display: flex;
     margin: 0 20px;
     border-radius: 10px;
     overflow: hidden;
@@ -105,14 +106,16 @@ nav {
 }
 
 .hero-image {
+    flex: 1.2;
+    position: static;
+}
+
+.hero-image video {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-}
-
-.hero-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -120,26 +123,25 @@ nav {
 }
 
 .hero-content {
-    position: relative;
-    margin-left: auto;
-    width: 52%;
-    height: 100%;
+    flex: 1;
     background-color: var(--yellow);
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 27%;
-    padding-right: 50px;
+    padding-right: 40px;
+    position: relative;
     clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 50%);
+    margin-left: -150px;
 }
 
 .hero-title {
     color: var(--blue);
-    font-size: 58px;
-    line-height: 1.05;
+    font-size: 68px;
+    line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
-    max-width: 100%;
+    max-width: 550px;
 }
 
 /* Side Tab */
