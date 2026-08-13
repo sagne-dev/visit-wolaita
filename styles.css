@@ -822,36 +822,6 @@ footer::before {
     font-size: 15px;
 }
 
-.newsletter-box {
-    background: rgba(255,255,255,0.08);
-    padding: 30px;
-    border-radius: 16px;
-    max-width: 420px;
-}
-
-.newsletter-box h4 {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-
-.newsletter-box p {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: 20px;
-    line-height: 1.4;
-}
-
-.subscribe-btn {
-    background: var(--yellow);
-    color: black;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
 .footer-bottom {
     border-top: 1px solid rgba(255,255,255,0.15);
     padding-top: 30px;
