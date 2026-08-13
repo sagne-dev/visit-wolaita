@@ -106,7 +106,7 @@ nav {
 }
 
 .hero-image {
-    flex: 1.2;
+    flex: 3;
     position: static;
 }
 
@@ -137,7 +137,7 @@ nav {
 
 .hero-title {
     color: var(--blue);
-    font-size: 68px;
+    font-size: 52px;
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
