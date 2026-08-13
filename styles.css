@@ -772,15 +772,6 @@ nav {
     object-fit: cover;
 }
 
-.insta-icon {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    color: white;
-    font-size: 18px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
 /* FOOTER SECTION */
 footer {
     background-color: var(--dark-teal);
