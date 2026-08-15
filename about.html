@@ -248,10 +248,15 @@
 
     .section-header h2 {
       font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.03em;
       max-width: 900px;
+    }
+
+    .section-header h2 em {
+      font-style: normal;
+      color: #fca311;
     }
 
     /* 3-Column Grid */
@@ -261,61 +266,82 @@
     }
 
     .king-card {
+      position: relative;
+      overflow: hidden;
       border-right: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 24px;
+      padding: 28px 26px;
+      min-height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: background-color 0.3s ease;
+      cursor: pointer;
+      background-color: transparent;
+      transition: background-color 0.35s ease;
+      will-change: transform;
     }
 
     .king-card:nth-child(3n) {
       border-right: none;
     }
 
-    .king-card:hover {
-      background-color: rgba(255, 255, 255, 0.02);
+    /* Accent bar that grows on hover */
+    .king-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #fca311;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .king-card:hover::before,
+    .king-card.is-open::before {
+      transform: scaleY(1);
+    }
+
+    .king-card:hover,
+    .king-card.is-open {
+      background-color: rgba(252, 163, 17, 0.05);
     }
 
     .card-top {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: flex-start;
-      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .king-number {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.15em;
+      transition: color 0.3s ease;
+    }
+
+    .king-card:hover .king-number,
+    .king-card.is-open .king-number {
+      color: #fca311;
     }
 
     .king-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
     }
 
     .dynasty-tag {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: rgba(255, 255, 255, 0.5);
-      font-weight: 500;
-    }
-
-    .image-container {
-      width: 100%;
-      height: 380px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      background-color: #161f26;
-    }
-
-    .king-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(20%);
-      transition: transform 0.5s ease, filter 0.5s ease;
-    }
-
-    .king-card:hover .king-image {
-      transform: scale(1.03);
-      filter: grayscale(0%);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .king-history {
@@ -323,6 +349,19 @@
       line-height: 1.6;
       color: rgba(255, 255, 255, 0.7);
       font-weight: 400;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .kings-hint {
+      padding: 26px 40px 40px 40px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
     }
 
     /* Responsive Grid Styling */
@@ -424,716 +463,596 @@
     </div>
   </section>
 
+  
   <!-- Section 3: Kings Grid Section -->
   <section class="kings-section" id="kings">
     <div class="section-header">
-      <h2>We've documented the legacy of 50 kings.<br>See for yourself</h2>
+      <h2>We have documented the legacy of <em>50 kings</em>.<br>Hover or tap to reveal their story</h2>
     </div>
 
     <div class="kings-grid">
 
       <!-- 1 -->
-      <div class="king-card">
+      <div class="king-card" data-king="01">
         <div class="card-top">
-          <h3 class="king-name">1. Kawo Motolomi Sato</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">01</span>
+          <h3 class="king-name">Kawo Motolomi Sato</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-01.jpg" alt="Kawo Motolomi Sato">
-        </div>
-        <p class="king-history">
-          The legendary ruler (c. 1251–1298) who unified surrounding territories and expanded the influence of the initial Wolaita kingdom.
-        </p>
+        <p class="king-history">The legendary ruler (c. 1251–1298) who unified surrounding territories and expanded the influence of the initial Wolaita kingdom.</p>
       </div>
 
       <!-- 2 -->
-      <div class="king-card">
+      <div class="king-card" data-king="02">
         <div class="card-top">
-          <h3 class="king-name">2. Kawo Kote Motolomi</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">02</span>
+          <h3 class="king-name">Kawo Kote Motolomi</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-02.jpg" alt="Kawo Kote Motolomi">
-        </div>
-        <p class="king-history">
-          Son of Motolomi; consolidated early administrative structures and preserved agrarian development across the central highlands.
-        </p>
+        <p class="king-history">Son of Motolomi; consolidated early administrative structures and preserved agrarian development across the central highlands.</p>
       </div>
 
       <!-- 3 -->
-      <div class="king-card">
+      <div class="king-card" data-king="03">
         <div class="card-top">
-          <h3 class="king-name">3. Kawo Wolde Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">03</span>
+          <h3 class="king-name">Kawo Wolde Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-03.jpg" alt="Kawo Wolde Malla">
-        </div>
-        <p class="king-history">
-          Strengthened internal security council and reinforced early regional trade practices among neighboring southern kingdoms.
-        </p>
+        <p class="king-history">Strengthened internal security council and reinforced early regional trade practices among neighboring southern kingdoms.</p>
       </div>
 
       <!-- 4 -->
-      <div class="king-card">
+      <div class="king-card" data-king="04">
         <div class="card-top">
-          <h3 class="king-name">4. Kawo Gobe Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">04</span>
+          <h3 class="king-name">Kawo Gobe Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-04.jpg" alt="Kawo Gobe Malla">
-        </div>
-        <p class="king-history">
-          Expanded judicial governance and standardized community assembly systems across rural settlements.
-        </p>
+        <p class="king-history">Expanded judicial governance and standardized community assembly systems across rural settlements.</p>
       </div>
 
       <!-- 5 -->
-      <div class="king-card">
+      <div class="king-card" data-king="05">
         <div class="card-top">
-          <h3 class="king-name">5. Kawo Balla Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">05</span>
+          <h3 class="king-name">Kawo Balla Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-05.jpg" alt="Kawo Balla Malla">
-        </div>
-        <p class="king-history">
-          Promoted environmental preservation and traditional terracing practices throughout the fertile hillsides.
-        </p>
+        <p class="king-history">Promoted environmental preservation and traditional terracing practices throughout the fertile hillsides.</p>
       </div>
 
       <!-- 6 -->
-      <div class="king-card">
+      <div class="king-card" data-king="06">
         <div class="card-top">
-          <h3 class="king-name">6. Kawo Lora Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">06</span>
+          <h3 class="king-name">Kawo Lora Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-06.jpg" alt="Kawo Lora Malla">
-        </div>
-        <p class="king-history">
-          Championed spiritual leadership and organized defensive watch posts near boundary waterways.
-        </p>
+        <p class="king-history">Championed spiritual leadership and organized defensive watch posts near boundary waterways.</p>
       </div>
 
       <!-- 7 -->
-      <div class="king-card">
+      <div class="king-card" data-king="07">
         <div class="card-top">
-          <h3 class="king-name">7. Kawo Ogato Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">07</span>
+          <h3 class="king-name">Kawo Ogato Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-07.jpg" alt="Kawo Ogato Malla">
-        </div>
-        <p class="king-history">
-          Focused on diplomatic dialogue and peaceful trade exchanges with western neighbors.
-        </p>
+        <p class="king-history">Focused on diplomatic dialogue and peaceful trade exchanges with western neighbors.</p>
       </div>
 
       <!-- 8 -->
-      <div class="king-card">
+      <div class="king-card" data-king="08">
         <div class="card-top">
-          <h3 class="king-name">8. Kawo Badaje Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">08</span>
+          <h3 class="king-name">Kawo Badaje Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-08.jpg" alt="Kawo Badaje Malla">
-        </div>
-        <p class="king-history">
-          Pioneered early irrigation methods and enhanced food distribution mechanisms.
-        </p>
+        <p class="king-history">Pioneered early irrigation methods and enhanced food distribution mechanisms.</p>
       </div>
 
       <!-- 9 -->
-      <div class="king-card">
+      <div class="king-card" data-king="09">
         <div class="card-top">
-          <h3 class="king-name">9. Kawo Wachamo Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">09</span>
+          <h3 class="king-name">Kawo Wachamo Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-09.jpg" alt="Kawo Wachamo Malla">
-        </div>
-        <p class="king-history">
-          A respected mediator who oversaw peaceful resolution during inter-clan land negotiations.
-        </p>
+        <p class="king-history">A respected mediator who oversaw peaceful resolution during inter-clan land negotiations.</p>
       </div>
 
       <!-- 10 -->
-      <div class="king-card">
+      <div class="king-card" data-king="10">
         <div class="card-top">
-          <h3 class="king-name">10. Kawo Kure Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">10</span>
+          <h3 class="king-name">Kawo Kure Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-10.jpg" alt="Kawo Kure Malla">
-        </div>
-        <p class="king-history">
-          Fostered cultural celebrations and expanded iron production technology for farming implements.
-        </p>
+        <p class="king-history">Fostered cultural celebrations and expanded iron production technology for farming implements.</p>
       </div>
 
       <!-- 11 -->
-      <div class="king-card">
+      <div class="king-card" data-king="11">
         <div class="card-top">
-          <h3 class="king-name">11. Kawo Ganta Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">11</span>
+          <h3 class="king-name">Kawo Ganta Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-11.jpg" alt="Kawo Ganta Malla">
-        </div>
-        <p class="king-history">
-          Constructed early arterial roads connecting major marketplace nodes across the kingdom.
-        </p>
+        <p class="king-history">Constructed early arterial roads connecting major marketplace nodes across the kingdom.</p>
       </div>
 
       <!-- 12 -->
-      <div class="king-card">
+      <div class="king-card" data-king="12">
         <div class="card-top">
-          <h3 class="king-name">12. Kawo Shanno Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">12</span>
+          <h3 class="king-name">Kawo Shanno Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-12.jpg" alt="Kawo Shanno Malla">
-        </div>
-        <p class="king-history">
-          Preserved traditional heritage stories and expanded formal elder councils.
-        </p>
+        <p class="king-history">Preserved traditional heritage stories and expanded formal elder councils.</p>
       </div>
 
       <!-- 13 -->
-      <div class="king-card">
+      <div class="king-card" data-king="13">
         <div class="card-top">
-          <h3 class="king-name">13. Kawo Tekle Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">13</span>
+          <h3 class="king-name">Kawo Tekle Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-13.jpg" alt="Kawo Tekle Malla">
-        </div>
-        <p class="king-history">
-          Maintained regional stability and encouraged craftsmanship in weaving and metalwork.
-        </p>
+        <p class="king-history">Maintained regional stability and encouraged craftsmanship in weaving and metalwork.</p>
       </div>
 
       <!-- 14 -->
-      <div class="king-card">
+      <div class="king-card" data-king="14">
         <div class="card-top">
-          <h3 class="king-name">14. Kawo Kella Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">14</span>
+          <h3 class="king-name">Kawo Kella Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-14.jpg" alt="Kawo Kella Malla">
-        </div>
-        <p class="king-history">
-          Initiated early defensive perimeter planning that later inspired monumental boundary trenches.
-        </p>
+        <p class="king-history">Initiated early defensive perimeter planning that later inspired monumental boundary trenches.</p>
       </div>
 
       <!-- 15 -->
-      <div class="king-card">
+      <div class="king-card" data-king="15">
         <div class="card-top">
-          <h3 class="king-name">15. Kawo Liban Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">15</span>
+          <h3 class="king-name">Kawo Liban Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-15.jpg" alt="Kawo Liban Malla">
-        </div>
-        <p class="king-history">
-          A period of sustained peace that saw population growth and expanded highland farming.
-        </p>
+        <p class="king-history">A period of sustained peace that saw population growth and expanded highland farming.</p>
       </div>
 
       <!-- 16 -->
-      <div class="king-card">
+      <div class="king-card" data-king="16">
         <div class="card-top">
-          <h3 class="king-name">16. Kawo Chamo Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">16</span>
+          <h3 class="king-name">Kawo Chamo Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-16.jpg" alt="Kawo Chamo Malla">
-        </div>
-        <p class="king-history">
-          Strengthened ties around the rift valley lakes, promoting fishing and regional trade.
-        </p>
+        <p class="king-history">Strengthened ties around the rift valley lakes, promoting fishing and regional trade.</p>
       </div>
 
       <!-- 17 -->
-      <div class="king-card">
+      <div class="king-card" data-king="17">
         <div class="card-top">
-          <h3 class="king-name">17. Kawo Boro Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">17</span>
+          <h3 class="king-name">Kawo Boro Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-17.png" alt="Kawo Boro Malla">
-        </div>
-        <p class="king-history">
-          Reorganized territorial units into distinct administrative sub-regions for smoother collection of levies.
-        </p>
+        <p class="king-history">Reorganized territorial units into distinct administrative sub-regions for smoother collection of levies.</p>
       </div>
 
       <!-- 18 -->
-      <div class="king-card">
+      <div class="king-card" data-king="18">
         <div class="card-top">
-          <h3 class="king-name">18. Kawo Dido Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">18</span>
+          <h3 class="king-name">Kawo Dido Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-18.jpg" alt="Kawo Dido Malla">
-        </div>
-        <p class="king-history">
-          Encouraged cattle breeding advancements and communal grazing regulations.
-        </p>
+        <p class="king-history">Encouraged cattle breeding advancements and communal grazing regulations.</p>
       </div>
 
       <!-- 19 -->
-      <div class="king-card">
+      <div class="king-card" data-king="19">
         <div class="card-top">
-          <h3 class="king-name">19. Kawo Wolata Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">19</span>
+          <h3 class="king-name">Kawo Wolata Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-19.jpg" alt="Kawo Wolata Malla">
-        </div>
-        <p class="king-history">
-          Unified spiritual ceremonies with seasonal planting calendars to boost agricultural yields.
-        </p>
+        <p class="king-history">Unified spiritual ceremonies with seasonal planting calendars to boost agricultural yields.</p>
       </div>
 
       <!-- 20 -->
-      <div class="king-card">
+      <div class="king-card" data-king="20">
         <div class="card-top">
-          <h3 class="king-name">20. Kawo Sida Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">20</span>
+          <h3 class="king-name">Kawo Sida Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-20.jpg" alt="Kawo Sida Malla">
-        </div>
-        <p class="king-history">
-          Reinforced military readiness and training centers along peripheral borders.
-        </p>
+        <p class="king-history">Reinforced military readiness and training centers along peripheral borders.</p>
       </div>
 
       <!-- 21 -->
-      <div class="king-card">
+      <div class="king-card" data-king="21">
         <div class="card-top">
-          <h3 class="king-name">21. Kawo Borale Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">21</span>
+          <h3 class="king-name">Kawo Borale Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-21.jpg" alt="Kawo Borale Malla">
-        </div>
-        <p class="king-history">
-          Encouraged pottery, basketry, and artisan crafts to support growing markets.
-        </p>
+        <p class="king-history">Encouraged pottery, basketry, and artisan crafts to support growing markets.</p>
       </div>
 
       <!-- 22 -->
-      <div class="king-card">
+      <div class="king-card" data-king="22">
         <div class="card-top">
-          <h3 class="king-name">22. Kawo Mare Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">22</span>
+          <h3 class="king-name">Kawo Mare Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-22.jpg" alt="Kawo Mare Malla">
-        </div>
-        <p class="king-history">
-          A period marked by diplomatic missions to neighboring kingdoms, securing trade corridors.
-        </p>
+        <p class="king-history">A period marked by diplomatic missions to neighboring kingdoms, securing trade corridors.</p>
       </div>
 
       <!-- 23 -->
-      <div class="king-card">
+      <div class="king-card" data-king="23">
         <div class="card-top">
-          <h3 class="king-name">23. Kawo Gaba Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">23</span>
+          <h3 class="king-name">Kawo Gaba Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-23.jpg" alt="Kawo Gaba Malla">
-        </div>
-        <p class="king-history">
-          Expanded civic infrastructure, creating centralized gathering places for local justice.
-        </p>
+        <p class="king-history">Expanded civic infrastructure, creating centralized gathering places for local justice.</p>
       </div>
 
       <!-- 24 -->
-      <div class="king-card">
+      <div class="king-card" data-king="24">
         <div class="card-top">
-          <h3 class="king-name">24. Kawo Suke Malla</h3>
-          <span class="dynasty-tag">/ Wolaita Malla Dynasty</span>
+          <span class="king-number">24</span>
+          <h3 class="king-name">Kawo Suke Malla</h3>
+          <span class="dynasty-tag">Wolaita Malla Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-24.jpg" alt="Kawo Suke Malla">
-        </div>
-        <p class="king-history">
-          Final monarch of the original Malla lineage before the transition into the Tigre Dynasty.
-        </p>
+        <p class="king-history">Final monarch of the original Malla lineage before the transition into the Tigre Dynasty.</p>
       </div>
 
       <!-- 25 -->
-      <div class="king-card">
+      <div class="king-card" data-king="25">
         <div class="card-top">
-          <h3 class="king-name">25. Kawo Mikael Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">25</span>
+          <h3 class="king-name">Kawo Mikael Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-25.jpg" alt="Kawo Mikael Tigre">
-        </div>
-        <p class="king-history">
-          Pioneered the founding era of the Tigre Dynasty, introducing revamped administrative systems.
-        </p>
+        <p class="king-history">Pioneered the founding era of the Tigre Dynasty, introducing revamped administrative systems.</p>
       </div>
 
       <!-- 26 -->
-      <div class="king-card">
+      <div class="king-card" data-king="26">
         <div class="card-top">
-          <h3 class="king-name">26. Kawo Gazenja</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">26</span>
+          <h3 class="king-name">Kawo Gazenja</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-26.jpg" alt="Kawo Gazenja">
-        </div>
-        <p class="king-history">
-          17th-century ruler who reorganized defensive infantry tactics and preserved kingdom stability.
-        </p>
+        <p class="king-history">17th-century ruler who reorganized defensive infantry tactics and preserved kingdom stability.</p>
       </div>
 
       <!-- 27 -->
-      <div class="king-card">
+      <div class="king-card" data-king="27">
         <div class="card-top">
-          <h3 class="king-name">27. Kawo Sanna Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">27</span>
+          <h3 class="king-name">Kawo Sanna Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-27.jpg" alt="Kawo Sanna Tigre">
-        </div>
-        <p class="king-history">
-          Championed the development of the Marchuwa iron currency system to streamline trade.
-        </p>
+        <p class="king-history">Championed the development of the Marchuwa iron currency system to streamline trade.</p>
       </div>
 
       <!-- 28 -->
-      <div class="king-card">
+      <div class="king-card" data-king="28">
         <div class="card-top">
-          <h3 class="king-name">28. Kawo Lante Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">28</span>
+          <h3 class="king-name">Kawo Lante Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-28.jpg" alt="Kawo Lante Tigre">
-        </div>
-        <p class="king-history">
-          Maintained internal peace through strategic royal marriage alliances and regional diplomacy.
-        </p>
+        <p class="king-history">Maintained internal peace through strategic royal marriage alliances and regional diplomacy.</p>
       </div>
 
       <!-- 29 -->
-      <div class="king-card">
+      <div class="king-card" data-king="29">
         <div class="card-top">
-          <h3 class="king-name">29. Kawo Muka Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">29</span>
+          <h3 class="king-name">Kawo Muka Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-29.jpg" alt="Kawo Muka Tigre">
-        </div>
-        <p class="king-history">
-          Focused heavily on livestock management programs and protecting water catchment areas.
-        </p>
+        <p class="king-history">Focused heavily on livestock management programs and protecting water catchment areas.</p>
       </div>
 
       <!-- 30 -->
-      <div class="king-card">
+      <div class="king-card" data-king="30">
         <div class="card-top">
-          <h3 class="king-name">30. Kawo Tello Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">30</span>
+          <h3 class="king-name">Kawo Tello Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-30.jpg" alt="Kawo Tello Tigre">
-        </div>
-        <p class="king-history">
-          Promoted agrarian reform, encouraging Enset cultivation on a wide commercial scale.
-        </p>
+        <p class="king-history">Promoted agrarian reform, encouraging Enset cultivation on a wide commercial scale.</p>
       </div>
 
       <!-- 31 -->
-      <div class="king-card">
+      <div class="king-card" data-king="31">
         <div class="card-top">
-          <h3 class="king-name">31. Kawo Boke Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">31</span>
+          <h3 class="king-name">Kawo Boke Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-31.jpg" alt="Kawo Boke Tigre">
-        </div>
-        <p class="king-history">
-          Expanded boundary outposts and fortified critical trade mountain passes.
-        </p>
+        <p class="king-history">Expanded boundary outposts and fortified critical trade mountain passes.</p>
       </div>
 
       <!-- 32 -->
-      <div class="king-card">
+      <div class="king-card" data-king="32">
         <div class="card-top">
-          <h3 class="king-name">32. Kawo Dado Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">32</span>
+          <h3 class="king-name">Kawo Dado Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-32.jpg" alt="Kawo Dado Tigre">
-        </div>
-        <p class="king-history">
-          Established standardized legal codes for dispute resolution in village assemblies.
-        </p>
+        <p class="king-history">Established standardized legal codes for dispute resolution in village assemblies.</p>
       </div>
 
       <!-- 33 -->
-      <div class="king-card">
+      <div class="king-card" data-king="33">
         <div class="card-top">
-          <h3 class="king-name">33. Kawo Zaga Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">33</span>
+          <h3 class="king-name">Kawo Zaga Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-33.jpg" alt="Kawo Zaga Tigre">
-        </div>
-        <p class="king-history">
-          Encouraged blacksmith guilds to refine weapons manufacturing and tool durability.
-        </p>
+        <p class="king-history">Encouraged blacksmith guilds to refine weapons manufacturing and tool durability.</p>
       </div>
 
       <!-- 34 -->
-      <div class="king-card">
+      <div class="king-card" data-king="34">
         <div class="card-top">
-          <h3 class="king-name">34. Kawo Woga Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">34</span>
+          <h3 class="king-name">Kawo Woga Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-34.jpg" alt="Kawo Woga Tigre">
-        </div>
-        <p class="king-history">
-          Strengthened tax assessment systems across regional marketplaces.
-        </p>
+        <p class="king-history">Strengthened tax assessment systems across regional marketplaces.</p>
       </div>
 
       <!-- 35 -->
-      <div class="king-card">
+      <div class="king-card" data-king="35">
         <div class="card-top">
-          <h3 class="king-name">35. Kawo Kassa Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">35</span>
+          <h3 class="king-name">Kawo Kassa Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-35.jpg" alt="Kawo Kassa Tigre">
-        </div>
-        <p class="king-history">
-          Constructed royal residence compounds that became administrative hubs.
-        </p>
+        <p class="king-history">Constructed royal residence compounds that became administrative hubs.</p>
       </div>
 
       <!-- 36 -->
-      <div class="king-card">
+      <div class="king-card" data-king="36">
         <div class="card-top">
-          <h3 class="king-name">36. Kawo Sida II</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">36</span>
+          <h3 class="king-name">Kawo Sida II</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-36.jpg" alt="Kawo Sida II">
-        </div>
-        <p class="king-history">
-          Maintained strong defense agreements along eastern frontiers near Lake Abaya.
-        </p>
+        <p class="king-history">Maintained strong defense agreements along eastern frontiers near Lake Abaya.</p>
       </div>
 
       <!-- 37 -->
-      <div class="king-card">
+      <div class="king-card" data-king="37">
         <div class="card-top">
-          <h3 class="king-name">37. Kawo Chare Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">37</span>
+          <h3 class="king-name">Kawo Chare Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-37.jpg" alt="Kawo Chare Tigre">
-        </div>
-        <p class="king-history">
-          Expanded timber preservation laws to protect highland forest ecosystems.
-        </p>
+        <p class="king-history">Expanded timber preservation laws to protect highland forest ecosystems.</p>
       </div>
 
       <!-- 38 -->
-      <div class="king-card">
+      <div class="king-card" data-king="38">
         <div class="card-top">
-          <h3 class="king-name">38. Kawo Gassa Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">38</span>
+          <h3 class="king-name">Kawo Gassa Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-38.jpg" alt="Kawo Gassa Tigre">
-        </div>
-        <p class="king-history">
-          Fostered long-distance trade in spices, cotton textiles, and iron bars.
-        </p>
+        <p class="king-history">Fostered long-distance trade in spices, cotton textiles, and iron bars.</p>
       </div>
 
       <!-- 39 -->
-      <div class="king-card">
+      <div class="king-card" data-king="39">
         <div class="card-top">
-          <h3 class="king-name">39. Kawo Wolde II</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">39</span>
+          <h3 class="king-name">Kawo Wolde II</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-39.jpg" alt="Kawo Wolde II">
-        </div>
-        <p class="king-history">
-          Oversee modernizing military equipment and cavalry mobility techniques.
-        </p>
+        <p class="king-history">Oversee modernizing military equipment and cavalry mobility techniques.</p>
       </div>
 
       <!-- 40 -->
-      <div class="king-card">
+      <div class="king-card" data-king="40">
         <div class="card-top">
-          <h3 class="king-name">40. Kawo Bereda Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">40</span>
+          <h3 class="king-name">Kawo Bereda Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-40.jpg" alt="Kawo Bereda Tigre">
-        </div>
-        <p class="king-history">
-          Restructured internal tribute networks to support central public works.
-        </p>
+        <p class="king-history">Restructured internal tribute networks to support central public works.</p>
       </div>
 
       <!-- 41 -->
-      <div class="king-card">
+      <div class="king-card" data-king="41">
         <div class="card-top">
-          <h3 class="king-name">41. Kawo Damote Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">41</span>
+          <h3 class="king-name">Kawo Damote Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-41.jpg" alt="Kawo Damote Tigre">
-        </div>
-        <p class="king-history">
-          Father of Kawo Amado; set the foundations for massive civil defense engineering.
-        </p>
+        <p class="king-history">Father of Kawo Amado; set the foundations for massive civil defense engineering.</p>
       </div>
 
       <!-- 42 -->
-      <div class="king-card">
+      <div class="king-card" data-king="42">
         <div class="card-top">
-          <h3 class="king-name">42. Kawo Saga Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">42</span>
+          <h3 class="king-name">Kawo Saga Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-42.jpg" alt="Kawo Saga Tigre">
-        </div>
-        <p class="king-history">
-          Encouraged youth leadership development for civil governance roles.
-        </p>
+        <p class="king-history">Encouraged youth leadership development for civil governance roles.</p>
       </div>
 
       <!-- 43 -->
-      <div class="king-card">
+      <div class="king-card" data-king="43">
         <div class="card-top">
-          <h3 class="king-name">43. Kawo Odo Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">43</span>
+          <h3 class="king-name">Kawo Odo Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-43.jpg" alt="Kawo Odo Tigre">
-        </div>
-        <p class="king-history">
-          Strengthened public storage silos to protect against drought and seasonal shortfalls.
-        </p>
+        <p class="king-history">Strengthened public storage silos to protect against drought and seasonal shortfalls.</p>
       </div>
 
       <!-- 44 -->
-      <div class="king-card">
+      <div class="king-card" data-king="44">
         <div class="card-top">
-          <h3 class="king-name">44. Kawo Wanja Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">44</span>
+          <h3 class="king-name">Kawo Wanja Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-44.jpg" alt="Kawo Wanja Tigre">
-        </div>
-        <p class="king-history">
-          Enhanced cavalry corps training and fortified critical mountain passes.
-        </p>
+        <p class="king-history">Enhanced cavalry corps training and fortified critical mountain passes.</p>
       </div>
 
       <!-- 45 -->
-      <div class="king-card">
+      <div class="king-card" data-king="45">
         <div class="card-top">
-          <h3 class="king-name">45. Kawo Shana Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">45</span>
+          <h3 class="king-name">Kawo Shana Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-45.jpg" alt="Kawo Shana Tigre">
-        </div>
-        <p class="king-history">
-          Promoted regional peace negotiations and cross-border commercial fairs.
-        </p>
+        <p class="king-history">Promoted regional peace negotiations and cross-border commercial fairs.</p>
       </div>
 
       <!-- 46 -->
-      <div class="king-card">
+      <div class="king-card" data-king="46">
         <div class="card-top">
-          <h3 class="king-name">46. Kawo Gacho Tigre</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">46</span>
+          <h3 class="king-name">Kawo Gacho Tigre</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-46.jpg" alt="Kawo Gacho Tigre">
-        </div>
-        <p class="king-history">
-          Reinforced traditional council structures and supported local judicial courts.
-        </p>
+        <p class="king-history">Reinforced traditional council structures and supported local judicial courts.</p>
       </div>
 
       <!-- 47 -->
-      <div class="king-card">
+      <div class="king-card" data-king="47">
         <div class="card-top">
-          <h3 class="king-name">47. Kawo Amado Ogato</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">47</span>
+          <h3 class="king-name">Kawo Amado Ogato</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-47.jpg" alt="Kawo Amado Ogato">
-        </div>
-        <p class="king-history">
-          Reigned in the 19th century (c. 1800–1835). Commissioned the monumental defensive walls ("Kawo Amado Kella").
-        </p>
+        <p class="king-history">Reigned in the 19th century (c. 1800–1835). Commissioned the monumental defensive walls ("Kawo Amado Kella").</p>
       </div>
 
       <!-- 48 -->
-      <div class="king-card">
+      <div class="king-card" data-king="48">
         <div class="card-top">
-          <h3 class="king-name">48. Kawo Gobe Damote</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">48</span>
+          <h3 class="king-name">Kawo Gobe Damote</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-48.jpg" alt="Kawo Gobe Damote">
-        </div>
-        <p class="king-history">
-          Ruled (c. 1845–1886); oversaw massive economic growth and trade expansion through the Marchuwa currency.
-        </p>
+        <p class="king-history">Ruled (c. 1845–1886); oversaw massive economic growth and trade expansion through the Marchuwa currency.</p>
       </div>
 
       <!-- 49 -->
-      <div class="king-card">
+      <div class="king-card" data-king="49">
         <div class="card-top">
-          <h3 class="king-name">49. Kawo Gaga Gobe</h3>
-          <span class="dynasty-tag">/ Tigre Dynasty</span>
+          <span class="king-number">49</span>
+          <h3 class="king-name">Kawo Gaga Gobe</h3>
+          <span class="dynasty-tag">Tigre Dynasty</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-49.jpg" alt="Kawo Gaga Gobe">
-        </div>
-        <p class="king-history">
-          Reigned (c. 1886–1890); focused on modernizing military fortifications and unifying military forces.
-        </p>
+        <p class="king-history">Reigned (c. 1886–1890); focused on modernizing military fortifications and unifying military forces.</p>
       </div>
 
       <!-- 50 -->
-      <div class="king-card">
+      <div class="king-card" data-king="50">
         <div class="card-top">
-          <h3 class="king-name">50. Kawo Tona Gaga</h3>
-          <span class="dynasty-tag">/ Last Independent King</span>
+          <span class="king-number">50</span>
+          <h3 class="king-name">Kawo Tona Gaga</h3>
+          <span class="dynasty-tag">Last Independent King</span>
         </div>
-        <div class="image-container">
-          <img class="king-image" src="images/kings/king-50.jpg" alt="Kawo Tona Gaga">
-        </div>
-        <p class="king-history">
-          The 50th and final ruler of the sovereign Wolaita Kingdom (c. 1890–1896), celebrated as a legendary military general.
-        </p>
+        <p class="king-history">The 50th and final ruler of the sovereign Wolaita Kingdom (c. 1890–1896), celebrated as a legendary military general.</p>
       </div>
 
     </div>
+
+    <div class="kings-hint">Hover or tap a king to reveal their story</div>
   </section>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- Entrance: stagger the cards as they scroll into view ---
+    gsap.from('.king-card', {
+      y: 50,
+      opacity: 0,
+      stagger: 0.04,
+      duration: 0.7,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.kings-grid',
+        start: 'top 85%',
+        once: true
+      }
+    });
+
+    // --- Header reveal ---
+    gsap.from('.section-header h2', {
+      y: 60,
+      opacity: 0,
+      duration: 0.9,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.section-header',
+        start: 'top 85%',
+        once: true
+      }
+    });
+
+    // --- Interactive hover / tap reveal ---
+    document.querySelectorAll('.king-card').forEach(function (card) {
+      var history = card.querySelector('.king-history');
+      var tl = gsap.timeline({ paused: true, reversed: true })
+        .set(history, { maxHeight: 'none' })
+        .to(history, { height: 'auto', opacity: 1, marginTop: 18, duration: 0.45, ease: 'power2.out' });
+
+      var openCard = function () {
+        document.querySelectorAll('.king-card.is-open').forEach(function (other) {
+          if (other !== card) {
+            other.classList.remove('is-open');
+            gsap.set(other.querySelector('.king-history'), { height: 0, opacity: 0, marginTop: 0 });
+          }
+        });
+        card.classList.add('is-open');
+        tl.play();
+      };
+
+      var closeCard = function () {
+        card.classList.remove('is-open');
+        tl.reverse();
+      };
+
+      card.addEventListener('mouseenter', openCard);
+      card.addEventListener('mouseleave', closeCard);
+      card.addEventListener('click', function () {
+        if (card.classList.contains('is-open')) { closeCard(); } else { openCard(); }
+      });
+    });
+
+    // Subtle tilt on hover for extra motion
+    document.querySelectorAll('.king-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        gsap.to(card, { rotateY: px * 4, rotateX: py * -4, transformPerspective: 600, duration: 0.3, ease: 'power2.out' });
+      });
+      card.addEventListener('mouseleave', function () {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power2.out' });
+      });
+    });
+  </script>
 
 </body>
 </html>

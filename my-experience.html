@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolaita Travel</title>
+  <!-- Google Font: Inter for sleek modern sans-serif typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & Core Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0b1317; /* Dark slate dark background */
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.2;
+    }
+
+    /* Subtle Border Color used across grid lines */
+    :root {
+      --border-color: rgba(255, 255, 255, 0.12);
+      --text-muted: #8e9a9f;
+      --accent-orange: #f28020;
+    }
+
+    /* ----------------------------------------------------
+       Header / Navigation Bar
+    ---------------------------------------------------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      height: 60px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--accent-orange);
+      padding: 0 2rem;
+      height: 100%;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .brand-icon {
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      height: 100%;
+    }
+
+    .nav-links li {
+      height: 100%;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #e1e7e9;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .explore-btn {
+      border-left: 1px solid var(--border-color);
+      padding: 0 2.5rem;
+      font-weight: 500;
+    }
+
+    /* ----------------------------------------------------
+       Hero Section (full page)
+    ---------------------------------------------------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7.5vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ----------------------------------------------------
+       Card Grid Section
+    ---------------------------------------------------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:last-child {
+      border-right: none;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .card-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .card-image-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 2px;
+      overflow: hidden;
+      background-color: #172227;
+    }
+
+    .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Responsive adjustment for small screens */
+    @media (max-width: 900px) {
+      .hero-title {
+        font-size: 2.5rem;
+        padding: 0 1.5rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <span class="brand-icon">✹</span>
+      <span>Wolaita Travel</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">
+        Travel in Wolaita<br>
+        see some beautiful things<br>
+        and so much more
+      </h1>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-grid">
+      <!-- Card 1 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 01</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-01.jpg" alt="Wolaita Photo 01">
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 02</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-02.jpg" alt="Wolaita Photo 02">
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 03</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-03.jpg" alt="Wolaita Photo 03">
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 04</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-04.jpg" alt="Wolaita Photo 04">
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 05</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-05.jpg" alt="Wolaita Photo 05">
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 06</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-06.jpg" alt="Wolaita Photo 06">
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 07</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-07.jpg" alt="Wolaita Photo 07">
+        </div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 08</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-08.jpg" alt="Wolaita Photo 08">
+        </div>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 09</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-09.jpg" alt="Wolaita Photo 09">
+        </div>
+      </article>
+
+      <!-- Card 10 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 10</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-10.jpg" alt="Wolaita Photo 10">
+        </div>
+      </article>
+
+      <!-- Card 11 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 11</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-11.jpg" alt="Wolaita Photo 11">
+        </div>
+      </article>
+
+      <!-- Card 12 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 12</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-12.jpg" alt="Wolaita Photo 12">
+        </div>
+      </article>
+
+      <!-- Card 13 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 13</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-13.jpg" alt="Wolaita Photo 13">
+        </div>
+      </article>
+
+      <!-- Card 14 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 14</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-14.jpg" alt="Wolaita Photo 14">
+        </div>
+      </article>
+
+      <!-- Card 15 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 15</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-15.jpg" alt="Wolaita Photo 15">
+        </div>
+      </article>
+
+      <!-- Card 16 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 16</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-16.jpg" alt="Wolaita Photo 16">
+        </div>
+      </article>
+
+      <!-- Card 17 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 17</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-17.jpg" alt="Wolaita Photo 17">
+        </div>
+      </article>
+
+      <!-- Card 18 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 18</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-18.jpg" alt="Wolaita Photo 18">
+        </div>
+      </article>
+
+      <!-- Card 19 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 19</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-19.jpg" alt="Wolaita Photo 19">
+        </div>
+      </article>
+
+      <!-- Card 20 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 20</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-20.jpg" alt="Wolaita Photo 20">
+        </div>
+      </article>
+
+      <!-- Card 21 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 21</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-21.jpg" alt="Wolaita Photo 21">
+        </div>
+      </article>
+
+      <!-- Card 22 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 22</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-22.jpg" alt="Wolaita Photo 22">
+        </div>
+      </article>
+
+      <!-- Card 23 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 23</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-23.jpg" alt="Wolaita Photo 23">
+        </div>
+      </article>
+
+      <!-- Card 24 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 24</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-24.jpg" alt="Wolaita Photo 24">
+        </div>
+      </article>
+
+      <!-- Card 25 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 25</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-25.jpg" alt="Wolaita Photo 25">
+        </div>
+      </article>
+
+      <!-- Card 26 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 26</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-26.jpg" alt="Wolaita Photo 26">
+        </div>
+      </article>
+
+      <!-- Card 27 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 27</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-27.jpg" alt="Wolaita Photo 27">
+        </div>
+      </article>
+
+      <!-- Card 28 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 28</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-28.jpg" alt="Wolaita Photo 28">
+        </div>
+      </article>
+
+      <!-- Card 29 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 29</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-29.jpg" alt="Wolaita Photo 29">
+        </div>
+      </article>
+
+      <!-- Card 30 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 30</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-30.jpg" alt="Wolaita Photo 30">
+        </div>
+      </article>
+
+      <!-- Card 31 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 31</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-31.jpg" alt="Wolaita Photo 31">
+        </div>
+      </article>
+
+      <!-- Card 32 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 32</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-32.jpg" alt="Wolaita Photo 32">
+        </div>
+      </article>
+
+      <!-- Card 33 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 33</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-33.jpg" alt="Wolaita Photo 33">
+        </div>
+      </article>
+
+      <!-- Card 34 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 34</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-34.jpg" alt="Wolaita Photo 34">
+        </div>
+      </article>
+
+      <!-- Card 35 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 35</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-35.jpg" alt="Wolaita Photo 35">
+        </div>
+      </article>
+
+      <!-- Card 36 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 36</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-36.jpg" alt="Wolaita Photo 36">
+        </div>
+      </article>
+
+      <!-- Card 37 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 37</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-37.jpg" alt="Wolaita Photo 37">
+        </div>
+      </article>
+
+      <!-- Card 38 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 38</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-38.jpg" alt="Wolaita Photo 38">
+        </div>
+      </article>
+
+      <!-- Card 39 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 39</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-39.jpg" alt="Wolaita Photo 39">
+        </div>
+      </article>
+
+      <!-- Card 40 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 40</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-40.jpg" alt="Wolaita Photo 40">
+        </div>
+      </article>
+
+      <!-- Card 41 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 41</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-41.jpg" alt="Wolaita Photo 41">
+        </div>
+      </article>
+
+      <!-- Card 42 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 42</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-42.jpg" alt="Wolaita Photo 42">
+        </div>
+      </article>
+
+      <!-- Card 43 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 43</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-43.jpg" alt="Wolaita Photo 43">
+        </div>
+      </article>
+
+      <!-- Card 44 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 44</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-44.jpg" alt="Wolaita Photo 44">
+        </div>
+      </article>
+
+      <!-- Card 45 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 45</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-45.jpg" alt="Wolaita Photo 45">
+        </div>
+      </article>
+
+      <!-- Card 46 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 46</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-46.jpg" alt="Wolaita Photo 46">
+        </div>
+      </article>
+
+      <!-- Card 47 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 47</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-47.jpg" alt="Wolaita Photo 47">
+        </div>
+      </article>
+
+      <!-- Card 48 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 48</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-48.jpg" alt="Wolaita Photo 48">
+        </div>
+      </article>
+
+      <!-- Card 49 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 49</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-49.jpg" alt="Wolaita Photo 49">
+        </div>
+      </article>
+
+      <!-- Card 50 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 50</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-50.jpg" alt="Wolaita Photo 50">
+        </div>
+      </article>
+
+      <!-- Card 51 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 51</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-51.jpg" alt="Wolaita Photo 51">
+        </div>
+      </article>
+
+      <!-- Card 52 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 52</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-52.jpg" alt="Wolaita Photo 52">
+        </div>
+      </article>
+
+      <!-- Card 53 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 53</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-53.jpg" alt="Wolaita Photo 53">
+        </div>
+      </article>
+
+      <!-- Card 54 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 54</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-54.jpg" alt="Wolaita Photo 54">
+        </div>
+      </article>
+
+      <!-- Card 55 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 55</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-55.jpg" alt="Wolaita Photo 55">
+        </div>
+      </article>
+
+      <!-- Card 56 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 56</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-56.jpg" alt="Wolaita Photo 56">
+        </div>
+      </article>
+
+      <!-- Card 57 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 57</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-57.jpg" alt="Wolaita Photo 57">
+        </div>
+      </article>
+
+      <!-- Card 58 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 58</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-58.jpg" alt="Wolaita Photo 58">
+        </div>
+      </article>
+
+      <!-- Card 59 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Wolaita Experience</h2>
+          <span class="card-count">/ Photo 59</span>
+        </div>
+        <div class="card-image-wrapper">
+          <img src="images/my-experience/exp-59.jpg" alt="Wolaita Photo 59">
+        </div>
+      </article>
+</section>
+  </main>
+
+</body>
+</html>
