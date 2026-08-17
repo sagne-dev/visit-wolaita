@@ -173,6 +173,8 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 0.08em;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
         .submit-btn:hover {
             background: var(--blue);
@@ -362,6 +364,9 @@
         gsap.from('.form-container', { opacity: 0, y: 40, duration: 0.8, delay: 0.3, ease: 'power3.out' });
         gsap.from('.form-group', { opacity: 0, y: 20, duration: 0.5, stagger: 0.08, delay: 0.6, ease: 'power3.out' });
         gsap.from('.submit-btn', { opacity: 0, y: 20, duration: 0.5, delay: 1.2, ease: 'power3.out' });
+
+        // Fallback: ensure button is visible even without GSAP
+        setTimeout(() => { document.querySelector('.submit-btn').style.opacity = '1'; }, 2000);
     </script>
 
 </body>
