@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Visit Wolaita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --yellow: #FFDE00;
+            --blue: #0084A8;
+            --teal: #008080;
+            --dark-teal: #004D40;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background: #f4f4f4; color: #1a1a1a; }
+
+        nav {
+            background: var(--dark-teal);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; position: sticky; top: 0; z-index: 100;
+        }
+        nav .logo { color: white; text-decoration: none; font-size: 22px; font-weight: 900; }
+        nav .nav-links { display: flex; gap: 24px; }
+        nav .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 14px; opacity: 0.85; transition: opacity 0.3s; }
+        nav .nav-links a:hover { opacity: 1; }
+
+        .admin-header {
+            padding: 40px 40px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .admin-header h1 { font-size: 28px; font-weight: 900; color: var(--dark-teal); }
+        .admin-header .count {
+            background: var(--yellow); color: var(--dark-teal);
+            padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 800;
+        }
+
+        .bookings-grid {
+            padding: 0 40px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .booking-card:hover { transform: translateY(-2px); }
+
+        .booking-card .status {
+            position: absolute; top: 16px; right: 16px;
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .status-pending { background: #FFF3CD; color: #856404; }
+        .status-confirmed { background: #D4EDDA; color: #155724; }
+        .status-cancelled { background: #F8D7DA; color: #721C24; }
+
+        .booking-card .name {
+            font-size: 18px; font-weight: 800; color: var(--dark-teal);
+            margin-bottom: 4px; padding-right: 80px;
+        }
+        .booking-card .email { font-size: 13px; color: #888; margin-bottom: 16px; }
+
+        .booking-card .details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .booking-card .detail { }
+        .booking-card .detail-label { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+        .booking-card .detail-value { font-size: 13px; font-weight: 600; color: #333; }
+
+        .booking-card .interests { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .booking-card .tag {
+            background: #e6f7fb; color: var(--dark-teal);
+            padding: 4px 10px; border-radius: 8px;
+            font-size: 11px; font-weight: 700;
+        }
+
+        .booking-card .message-text {
+            font-size: 13px; color: #555; font-style: italic;
+            border-left: 3px solid var(--yellow);
+            padding-left: 12px; margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .booking-card .actions {
+            display: flex; gap: 8px;
+        }
+        .booking-card .actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .btn-confirm { background: var(--dark-teal); color: white; }
+        .btn-confirm:hover { background: var(--blue); }
+        .btn-pending { background: #FFF3CD; color: #856404; }
+        .btn-pending:hover { background: #FFE9A0; }
+        .btn-delete { background: #f8f8f8; color: #c0392b; border: 2px solid #f0f0f0; }
+        .btn-delete:hover { background: #c0392b; color: white; border-color: #c0392b; }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 20px; font-weight: 700; color: #555; margin-bottom: 8px; }
+        .empty-state p { font-size: 14px; }
+
+        @media (max-width: 600px) {
+            .bookings-grid { grid-template-columns: 1fr; padding: 0 16px 40px; }
+            .admin-header { padding: 24px 16px; }
+            nav { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Visit Wolaita</a>
+        <div class="nav-links">
+            <a href="booking.html">Book a Tour</a>
+            <a href="admin.html">Bookings</a>
+        </div>
+    </nav>
+
+    <div class="admin-header">
+        <h1>Bookings</h1>
+        <span class="count" id="count">0</span>
+    </div>
+
+    <div class="bookings-grid" id="bookingsGrid"></div>
+
+    <script>
+        let bookings = [];
+
+        async function loadBookings() {
+            const res = await fetch('/api/bookings');
+            bookings = await res.json();
+            render();
+        }
+
+        function render() {
+            const grid = document.getElementById('bookingsGrid');
+            const count = document.getElementById('count');
+
+            count.textContent = bookings.length;
+
+            if (bookings.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="icon">📭</div>
+                        <h3>No bookings yet</h3>
+                        <p>When someone submits a booking request, it will appear here.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = bookings.slice().reverse().map(b => `
+                <div class="booking-card">
+                    <span class="status status-${b.status}">${b.status}</span>
+                    <div class="name">${esc(b.name)}</div>
+                    <div class="email">${esc(b.email)}</div>
+                    <div class="details">
+                        <div class="detail">
+                            <div class="detail-label">Travel Dates</div>
+                            <div class="detail-value">${b.startDate}${b.endDate ? ' → ' + b.endDate : ''}</div>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Group Size</div>
+                            <div class="detail-value">${esc(b.groupSize || '—')}</div>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Phone</div>
+                            <div class="detail-value">${esc(b.phone || '—')}</div>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Submitted</div>
+                            <div class="detail-value">${new Date(b.submittedAt).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                    ${b.interests && b.interests.length ? `
+                        <div class="interests">
+                            ${b.interests.map(i => `<span class="tag">${esc(i)}</span>`).join('')}
+                        </div>` : ''}
+                    ${b.message ? `<div class="message-text">"${esc(b.message)}"</div>` : ''}
+                    <div class="actions">
+                        ${b.status === 'pending' ? `
+                            <button class="btn-confirm" onclick="updateStatus('${b.id}','confirmed')">✓ Confirm</button>
+                            <button class="btn-delete" onclick="deleteBooking('${b.id}')">✕ Delete</button>
+                        ` : b.status === 'confirmed' ? `
+                            <button class="btn-pending" onclick="updateStatus('${b.id}','pending')">← Revoke</button>
+                            <button class="btn-delete" onclick="deleteBooking('${b.id}')">✕ Delete</button>
+                        ` : `
+                            <button class="btn-confirm" onclick="updateStatus('${b.id}','confirmed')">✓ Re-confirm</button>
+                            <button class="btn-delete" onclick="deleteBooking('${b.id}')">✕ Delete</button>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+
+            gsap.from('.booking-card', { opacity: 0, y: 20, duration: 0.4, stagger: 0.06, ease: 'power3.out' });
+        }
+
+        function esc(str) {
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        async function updateStatus(id, status) {
+            await fetch(`/api/bookings/${id}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+            loadBookings();
+        }
+
+        async function deleteBooking(id) {
+            if (!confirm('Delete this booking?')) return;
+            await fetch(`/api/bookings/${id}`, { method: 'DELETE' });
+            loadBookings();
+        }
+
+        loadBookings();
+    </script>
+
+</body>
+</html>

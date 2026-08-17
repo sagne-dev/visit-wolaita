@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Tour | Visit Wolaita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --yellow: #FFDE00;
+            --blue: #0084A8;
+            --teal: #008080;
+            --dark-teal: #004D40;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+        body { background: #f8f8f8; color: #1a1a1a; }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            background: var(--dark-teal);
+        }
+        nav .logo {
+            color: white; text-decoration: none; font-size: 22px; font-weight: 900;
+        }
+        nav .nav-links { display: flex; gap: 32px; align-items: center; }
+        nav .nav-links a {
+            color: white; text-decoration: none; font-weight: 600; font-size: 14px;
+            opacity: 0.9; transition: opacity 0.3s;
+        }
+        nav .nav-links a:hover { opacity: 1; }
+
+        /* Hero */
+        .hero {
+            margin-top: 65px;
+            background: var(--dark-teal);
+            padding: 80px 40px 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            color: white;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+        .hero p {
+            color: var(--yellow);
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 720px;
+            margin: -30px auto 80px;
+            background: white;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .form-container h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark-teal);
+            margin-bottom: 8px;
+        }
+        .form-container .form-sub {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-teal);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .form-group label .req {
+            color: var(--blue);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: #1a1a1a;
+            background: #fafafa;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            background: white;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            text-transform: none;
+            letter-spacing: 0;
+            padding: 10px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+        }
+        .checkbox-group label:has(input:checked) {
+            border-color: var(--blue);
+            background: #e6f7fb;
+            color: var(--dark-teal);
+        }
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--yellow);
+            color: var(--dark-teal);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .submit-btn:hover {
+            background: var(--blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,132,168,0.3);
+        }
+
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-msg .check {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+        .success-msg h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark-teal);
+            margin-bottom: 8px;
+        }
+        .success-msg p {
+            color: #666;
+            font-size: 15px;
+        }
+        .success-msg a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: var(--dark-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .success-msg a:hover { background: var(--blue); }
+
+        /* Footer */
+        footer {
+            background: var(--dark-teal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer a { color: var(--yellow); text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-container { margin: -20px 16px 60px; padding: 32px 24px; }
+            nav { padding: 16px 20px; }
+            nav .nav-links { gap: 16px; }
+            nav .nav-links a { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Visit Wolaita</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Wolaita</a>
+            <a href="my-experience.html">My Experience</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>BOOK A TOUR</h1>
+        <p>Tell us what you want — we'll plan it all</p>
+    </div>
+
+    <div class="form-container" id="formContainer">
+        <div id="formContent">
+            <h2>Plan Your Trip</h2>
+            <p class="form-sub">Fill in the details and we'll get back to you within 24 hours.</p>
+
+            <form id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name <span class="req">*</span></label>
+                        <input type="text" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="req">*</span></label>
+                        <input type="email" name="email" required placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" placeholder="+251 ...">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Size</label>
+                        <select name="groupSize">
+                            <option value="">Select...</option>
+                            <option value="1">Solo</option>
+                            <option value="2">Couple (2)</option>
+                            <option value="3-5">Small group (3–5)</option>
+                            <option value="6-10">Medium group (6–10)</option>
+                            <option value="10+">Large group (10+)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date <span class="req">*</span></label>
+                        <input type="date" name="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" name="endDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Interests</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interests" value="nature"> Nature & Hiking</label>
+                        <label><input type="checkbox" name="interests" value="history"> History & Culture</label>
+                        <label><input type="checkbox" name="interests" value="food"> Local Food</label>
+                        <label><input type="checkbox" name="interests" value="photography"> Photography</label>
+                        <label><input type="checkbox" name="interests" value="adventure"> Adventure</label>
+                        <label><input type="checkbox" name="interests" value="wellness"> Wellness & Retreat</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" placeholder="Anything else we should know?"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Booking Request</button>
+            </form>
+        </div>
+
+        <div class="success-msg" id="successMsg">
+            <div class="check">✓</div>
+            <h3>Booking Request Sent!</h3>
+            <p>We'll review your request and get back to you within 24 hours.</p>
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed by Sagne · <a href="mailto:sagneboss427@gmail.com">Contact Us</a></p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('bookingForm');
+        const formContent = document.getElementById('formContent');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = Object.fromEntries(new FormData(form));
+            data.interests = form.querySelectorAll('input[name="interests"]:checked');
+            data.interests = Array.from(data.interests).map(cb => cb.value);
+
+            try {
+                const res = await fetch('/api/booking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (result.success) {
+                    formContent.style.display = 'none';
+                    successMsg.style.display = 'block';
+                    gsap.from(successMsg, { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out' });
+                } else {
+                    alert(result.error || 'Something went wrong. Please try again.');
+                }
+            } catch (err) {
+                alert('Could not connect to server. Please try again later.');
+            }
+        });
+
+        // Animate form on load
+        gsap.from('.form-container', { opacity: 0, y: 40, duration: 0.8, delay: 0.3, ease: 'power3.out' });
+        gsap.from('.form-group', { opacity: 0, y: 20, duration: 0.5, stagger: 0.08, delay: 0.6, ease: 'power3.out' });
+        gsap.from('.submit-btn', { opacity: 0, y: 20, duration: 0.5, delay: 1.2, ease: 'power3.out' });
+    </script>
+
+</body>
+</html>
