@@ -1,0 +1,15 @@
+{
+  "name": "visit-wolaita",
+  "version": "1.0.0",
+  "description": "Visit Wolaita - travel landing page plus regional healthcare app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
