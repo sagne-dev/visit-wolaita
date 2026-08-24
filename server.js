@@ -1,36 +1,33 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 const DATA_DIR = path.join(__dirname, 'data');
 const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
+const MONGODB_URI = process.env.MONGODB_URI;
+const DB_NAME = 'visit_wolaita';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-function readBookings() {
+let collection = null;
+
+function readBookingsFile() {
     if (!fs.existsSync(BOOKINGS_FILE)) return [];
-    const data = fs.readFileSync(BOOKINGS_FILE, 'utf8');
-    return JSON.parse(data);
+    return JSON.parse(fs.readFileSync(BOOKINGS_FILE, 'utf8'));
 }
 
-function writeBookings(bookings) {
+function writeBookingsFile(bookings) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
     fs.writeFileSync(BOOKINGS_FILE, JSON.stringify(bookings, null, 2));
 }
 
-// Serve static files
-app.use(express.static(__dirname));
-
-// Submit a booking
-app.post('/api/booking', (req, res) => {
-    const { name, email, phone, startDate, endDate, groupSize, interests, message } = req.body;
-    if (!name || !email || !startDate) {
-        return res.status(400).json({ error: 'Name, email, and start date are required.' });
-    }
-    const bookings = readBookings();
-    const booking = {
+function buildBooking({ name, email, phone, startDate, endDate, groupSize, interests, message }) {
+    if (!name || !email || !startDate) return null;
+    return {
         id: Date.now().toString(),
         name,
         email,
@@ -43,32 +40,76 @@ app.post('/api/booking', (req, res) => {
         status: 'pending',
         submittedAt: new Date().toISOString()
     };
+}
+
+async function getBookings() {
+    if (collection) return collection.find({}, { projection: { _id: 0 } }).toArray();
+    return readBookingsFile();
+}
+
+async function saveBooking(booking) {
+    if (collection) {
+        await collection.insertOne({ ...booking });
+        return booking.id;
+    }
+    const bookings = readBookingsFile();
     bookings.push(booking);
-    writeBookings(bookings);
-    res.json({ success: true, id: booking.id });
+    writeBookingsFile(bookings);
+    return booking.id;
+}
+
+async function setBookingStatus(id, status) {
+    if (collection) {
+        const result = await collection.updateOne({ id }, { $set: { status } });
+        return result.matchedCount > 0;
+    }
+    const bookings = readBookingsFile();
+    const idx = bookings.findIndex(b => b.id === id);
+    if (idx === -1) return false;
+    bookings[idx].status = status;
+    writeBookingsFile(bookings);
+    return true;
+}
+
+async function removeBooking(id) {
+    if (collection) {
+        await collection.deleteOne({ id });
+        return true;
+    }
+    let bookings = readBookingsFile();
+    bookings = bookings.filter(b => b.id !== id);
+    writeBookingsFile(bookings);
+    return true;
+}
+
+// Serve static files
+app.use(express.static(__dirname));
+
+// Submit a booking
+app.post('/api/booking', async (req, res) => {
+    const booking = buildBooking(req.body);
+    if (!booking) {
+        return res.status(400).json({ error: 'Name, email, and start date are required.' });
+    }
+    const id = await saveBooking(booking);
+    res.json({ success: true, id });
 });
 
 // Get all bookings (admin)
-app.get('/api/bookings', (req, res) => {
-    res.json(readBookings());
+app.get('/api/bookings', async (req, res) => {
+    res.json(await getBookings());
 });
 
 // Update booking status
-app.put('/api/bookings/:id/status', (req, res) => {
-    const { status } = req.body;
-    const bookings = readBookings();
-    const idx = bookings.findIndex(b => b.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Not found' });
-    bookings[idx].status = status;
-    writeBookings(bookings);
+app.put('/api/bookings/:id/status', async (req, res) => {
+    const ok = await setBookingStatus(req.params.id, req.body.status);
+    if (!ok) return res.status(404).json({ error: 'Not found' });
     res.json({ success: true });
 });
 
 // Delete a booking
-app.delete('/api/bookings/:id', (req, res) => {
-    let bookings = readBookings();
-    bookings = bookings.filter(b => b.id !== req.params.id);
-    writeBookings(bookings);
+app.delete('/api/bookings/:id', async (req, res) => {
+    await removeBooking(req.params.id);
     res.json({ success: true });
 });
 
@@ -77,6 +118,20 @@ app.get('/{*path}', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://0.0.0.0:${PORT}`);
-});
+(async () => {
+    if (MONGODB_URI) {
+        try {
+            const client = new MongoClient(MONGODB_URI);
+            await client.connect();
+            collection = client.db(DB_NAME).collection('bookings');
+            console.log('Connected to MongoDB - bookings stored permanently');
+        } catch (err) {
+            console.error('MongoDB connection failed, falling back to file storage:', err.message);
+        }
+    } else {
+        console.warn('MONGODB_URI not set - using temporary file storage');
+    }
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server running at http://0.0.0.0:${PORT}`);
+    });
+})();
