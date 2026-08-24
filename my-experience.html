@@ -188,6 +188,19 @@
         border-bottom: 1px solid var(--border-color);
       }
     }
+
+    @media (max-width: 640px) {
+      nav {
+        flex-direction: column;
+        height: auto;
+        padding: 12px 0;
+      }
+      .brand { padding: 0 1rem; }
+      .nav-links { width: 100%; overflow-x: auto; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { padding: 0.75rem 0.9rem; font-size: 0.8rem; height: auto; white-space: nowrap; }
+      .explore-btn { padding: 0.75rem 0.9rem; border-left: none; }
+    }
   </style>
 </head>
 <body>
