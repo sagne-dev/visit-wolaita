@@ -10,6 +10,25 @@ const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Wolaita2026!ChangeMe';
+
+function requireAdmin(req, res, next) {
+    const header = req.headers.authorization || '';
+    const [scheme, encoded] = header.split(' ');
+    if (scheme === 'Basic' && encoded) {
+        const decoded = Buffer.from(encoded, 'base64').toString('utf8');
+        const idx = decoded.indexOf(':');
+        const user = idx === -1 ? decoded : decoded.slice(0, idx);
+        const pass = idx === -1 ? '' : decoded.slice(idx + 1);
+        if (user === ADMIN_USER && pass === ADMIN_PASSWORD) {
+            return next();
+        }
+    }
+    res.setHeader('WWW-Authenticate', 'Basic realm="Admin", charset="UTF-8"');
+    res.status(401).send('Unauthorized');
+}
+
 function readBookings() {
     if (!fs.existsSync(BOOKINGS_FILE)) return [];
     const data = fs.readFileSync(BOOKINGS_FILE, 'utf8');
@@ -20,7 +39,8 @@ function writeBookings(bookings) {
     fs.writeFileSync(BOOKINGS_FILE, JSON.stringify(bookings, null, 2));
 }
 
-// Serve static files
+// Serve static files (admin page protected)
+app.use('/admin.html', requireAdmin);
 app.use(express.static(__dirname));
 
 // Submit a booking
@@ -49,12 +69,12 @@ app.post('/api/booking', (req, res) => {
 });
 
 // Get all bookings (admin)
-app.get('/api/bookings', (req, res) => {
+app.get('/api/bookings', requireAdmin, (req, res) => {
     res.json(readBookings());
 });
 
 // Update booking status
-app.put('/api/bookings/:id/status', (req, res) => {
+app.put('/api/bookings/:id/status', requireAdmin, (req, res) => {
     const { status } = req.body;
     const bookings = readBookings();
     const idx = bookings.findIndex(b => b.id === req.params.id);
@@ -65,7 +85,7 @@ app.put('/api/bookings/:id/status', (req, res) => {
 });
 
 // Delete a booking
-app.delete('/api/bookings/:id', (req, res) => {
+app.delete('/api/bookings/:id', requireAdmin, (req, res) => {
     let bookings = readBookings();
     bookings = bookings.filter(b => b.id !== req.params.id);
     writeBookings(bookings);
