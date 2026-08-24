@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const DATA_DIR = path.join(__dirname, 'data');
 const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = (process.env.MONGODB_URI || '').trim().replace(/^["']+|["']+$/g, '');
 const DB_NAME = 'visit_wolaita';
 
 app.use(express.json());
